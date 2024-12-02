@@ -38,7 +38,9 @@ extract_epic <- function(datatype_id) {
         specific_prop[["dtp_card_min"]] <- card[["min"]]
         specific_prop[["dtp_card_max"]] <- card[["max"]]
         specific_prop[["dtp_value_type"]] <- prop$Type
-        extractor_function(paste0("https://doi.org/", prop$Type))
+        if (prop$Type != "") {
+          extractor_function(paste0("https://doi.org/", prop$Type))
+        }
       }
       i <- i + 1
       all_props[i, ] <- specific_prop

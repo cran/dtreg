@@ -37,13 +37,6 @@
     ],
     [
       {
-        "dtp_name": "label",
-        "dtp_id": "4607bc7c42ac8db29bfc#label",
-        "dtp_card_min": 1,
-        "dtp_card_max": 1,
-        "dtp_value_type": "21.T11969/3df63b7acb0522da685d"
-      },
-      {
         "dtp_name": "value",
         "dtp_id": "4607bc7c42ac8db29bfc#value",
         "dtp_card_min": 1,

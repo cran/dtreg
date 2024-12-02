@@ -1,7 +1,7 @@
 Package: dtreg
 Title: Interact with Data Type Registries and Create Machine-Readable
         Data
-Version: 1.0.0
+Version: 1.1.0
 Authors@R: c(
     person("Olga", "Lezhnina", , "olga.lezhnina@tib.eu", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-2237-7725")),
@@ -24,11 +24,11 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 RoxygenNote: 7.2.3
 NeedsCompilation: no
-Packaged: 2024-09-15 12:37:13 UTC; LezhninaO
+Packaged: 2024-12-02 18:16:01 UTC; LezhninaO
 Author: Olga Lezhnina [aut, cre] (<https://orcid.org/0000-0003-2237-7725>),
   Manuel Prinz [aut] (<https://orcid.org/0000-0003-2151-4556>),
   Markus Stocker [aut] (<https://orcid.org/0000-0001-5492-3212>),
   Open Research Knowledge Graph Project and Contributors [cph]
 Maintainer: Olga Lezhnina <olga.lezhnina@tib.eu>
 Repository: CRAN
-Date/Publication: 2024-09-16 14:50:02 UTC
+Date/Publication: 2024-12-02 19:30:07 UTC

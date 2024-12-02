@@ -8,13 +8,13 @@ knitr::opts_chunk$set(
 library(dtreg)
 
 ## -----------------------------------------------------------------------------
-dt <- dtreg::load_datatype("https://doi.org/21.T11969/ff5e3f857788d20dd1aa")
+dt <- dtreg::load_datatype("https://doi.org/21.T11969/b9335ce2c99ed87735a6")
 
 ## -----------------------------------------------------------------------------
 names(dt)
 
 ## -----------------------------------------------------------------------------
-dtreg::show_fields(dt$statistical_test_of_difference())
+dtreg::show_fields(dt$group_comparison())
 
 ## ----include = FALSE----------------------------------------------------------
 knitr::opts_chunk$set(
@@ -24,17 +24,18 @@ knitr::opts_chunk$set(
 )
 
 ## -----------------------------------------------------------------------------
-#  labelled_inst <- dt$statistical_test_of_difference(label = "my_test_results")
+#  labelled_inst <- dt$group_comparison(label = "my_test_results")
 
 ## -----------------------------------------------------------------------------
 #  method_url <- dt$software_method(has_support_url = "https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/wilcox.test")
 
 ## -----------------------------------------------------------------------------
-#  sample_size <- dt$sample_size(has_specified_numeric_value = 50)
+#  dimensions <- dt$matrix_size(number_of_rows = 50,
+#                               number_of_columns = 2)
 
 ## -----------------------------------------------------------------------------
 #  my_dataframe <- data.frame(W = 44.5, p = 2.2e-16)
-#  output_dataframe <- dt$inferential_test_output(has_format = my_dataframe)
+#  output_dataframe <- dt$data_item(source_table = my_dataframe)
 
 ## -----------------------------------------------------------------------------
 #  class(my_dataframe$W)
@@ -42,18 +43,16 @@ knitr::opts_chunk$set(
 ## -----------------------------------------------------------------------------
 #  library(sets)
 #  my_tuple <- sets::tuple(my_dataframe, "the Wilcoxon test results")
-#  output_tuple <- dt$inferential_test_output(has_format = my_tuple)
+#  output_tuple <- dt$data_item(source_table = my_tuple)
 
 ## -----------------------------------------------------------------------------
-#  var_1 <- dt$statistical_variable(label = "var_1")
-#  var_2 <- dt$statistical_variable(label = "var_2")
-#  two_vars <- dt$statistical_test_of_difference(evaluates = c(var_1, var_2))
+#  var_1 <- dt$component(label = "var_1")
+#  var_2 <- dt$component(label = "var_2")
+#  two_vars <- dt$group_comparison(targets = c(var_1, var_2))
 
 ## -----------------------------------------------------------------------------
-#  two_vars <- dt$statistical_test_of_difference(evaluates = c(
-#    dt$statistical_variable(label = "var_1"),
-#    dt$statistical_variable(label = "var_2")
-#  ))
+#  two_vars <- dt$group_comparison(targets = c(dt$component(label = "var_1"),
+#                                              dt$component(label = "var_2")))
 
 ## -----------------------------------------------------------------------------
 #  software <- dt$software(label = "R",
@@ -68,37 +67,33 @@ knitr::opts_chunk$set(
 #  
 #  soft_method <- dt$software_method(
 #    label = "Wilcoxon rank sum test",
-#    uses_software = soft_library,
-#    is_implemented_by = "URL_code"
+#    part_of = soft_library,
+#    is_implemented_by = "stats::wilcox.test(versicolor$Petal.Length, virginica$Petal.Length)"
 #  )
 
 ## -----------------------------------------------------------------------------
-#  sample_size <- dt$sample_size(has_specified_numeric_value = 50)
-#  input <- dt$data_input(label = "Iris: virginia and versicolor",
-#                         has_characteristic = sample_size,
-#                         source =
-#                           "https://search.r-project.org/CRAN/refmans/MVTests/html/iris.html")
+#  dimensions <- dt$matrix_size(number_of_rows = 50,
+#                               number_of_columns = 2)
+#  input <- dt$data_item(label = "Iris: virginica and versicolor",
+#                        has_characteristic = dimensions,
+#                        source_url =
+#                          "https://search.r-project.org/CRAN/refmans/MVTests/html/iris.html")
 
 ## -----------------------------------------------------------------------------
-#  virginia <- dt$statistical_variable(label = "petal length virginia",
-#                                      has_format = "numeric")
-#  versicolor <-
-#    dt$statistical_variable(label = "petal length versicolor",
-#                            has_format = "numeric")
-#  variables <- dt$outcome_variable(label = "virginia vs versicolor",
-#                                   requires = c(virginia, versicolor))
+#  virginica <- dt$component(label = "petal length virginica")
+#  versicolor <- dt$component(label = "petal length versicolor")
 
 ## -----------------------------------------------------------------------------
 #  df_result <- data.frame(W = 44.5, p = 2.2e-16)
-#  output <- dt$inferential_test_output(has_format = df_result)
+#  output <- dt$data_item(source_table = df_result)
 
 ## -----------------------------------------------------------------------------
-#  wilcoxon_inst <- dt$statistical_test_of_difference(
-#    label = "Wilcoxon petal length, virginia vs versicolor",
+#  wilcoxon_inst <- dt$group_comparison(
+#    label = "Wilcoxon petal length, virginica vs versicolor",
 #    executes = soft_method,
-#    has_specified_input = input,
-#    evaluates = variables,
-#    has_specified_output = result
+#    has_input = input,
+#    targets = c(virginica, versicolor),
+#    has_output = output
 #  )
 
 ## -----------------------------------------------------------------------------
@@ -110,7 +105,7 @@ knitr::opts_chunk$set(
 ## -----------------------------------------------------------------------------
 #  library(dtreg)
 #  dt <-
-#    dtreg::load_datatype("https://doi.org/21.T11969/ff5e3f857788d20dd1aa")
+#    dtreg::load_datatype("https://doi.org/21.T11969/b9335ce2c99ed87735a6")
 #  
 #  software <- dt$software(label = "R",
 #                          versioninfo = "4.3.1")
@@ -122,31 +117,27 @@ knitr::opts_chunk$set(
 #  )
 #  soft_method <- dt$software_method(
 #    label = "Wilcoxon rank sum test",
-#    uses_software = soft_library,
-#    is_implemented_by = "url_code"
+#    part_of = soft_library,
+#    is_implemented_by = "stats::wilcox.test(versicolor$Petal.Length, virginica$Petal.Length)"
 #  )
-#  sample_size <- dt$sample_size(has_specified_numeric_value = 50)
-#  input <- dt$data_input(label = "Iris: virginia and versicolor",
-#                         has_characteristic = sample_size,
-#                         source = "https://search.r-project.org/CRAN/refmans/MVTests/html/iris.html")
-#  virginia <- dt$statistical_variable(label = "petal length virginia",
-#                                      has_format = "numeric")
-#  versicolor <-
-#    dt$statistical_variable(label = "petal length versicolor",
-#                            has_format = "numeric")
-#  variables <- dt$outcome_variable(label = "virginia vs versicolor",
-#                                   requires = c(virginia, versicolor))
+#  dimensions <- dt$matrix_size(number_of_rows = 50,
+#                               number_of_columns = 2)
+#  input <- dt$data_item(label = "Iris: virginica and versicolor",
+#                        has_characteristic = dimensions,
+#                        source_url = "https://search.r-project.org/CRAN/refmans/MVTests/html/iris.html")
+#  virginica <- dt$component(label = "petal length virginica")
+#  versicolor <- dt$component(label = "petal length versicolor")
 #  df_result <-
 #    data.frame(W = 44.5,
 #               p = 2.2e-16,
 #               stringsAsFactors = FALSE)
-#  output <- dt$inferential_test_output(has_format = df_result)
-#  wilcoxon_inst <- dt$statistical_test_of_difference(
-#    label = "Wilcoxon iris petal length, virginia vs versicolor",
+#  output <- dt$data_item(source_table = df_result)
+#  wilcoxon_inst <- dt$group_comparison(
+#    label = "Wilcoxon iris petal length, virginica vs versicolor",
 #    executes = soft_method,
-#    has_specified_input = input,
-#    evaluates = variables,
-#    has_specified_output = output
+#    has_input = input,
+#    targets = c(virginica, versicolor),
+#    has_output = output
 #  )
 #  
 #  wilcoxon_json <- dtreg::to_jsonld(wilcoxon_inst)

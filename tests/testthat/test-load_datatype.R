@@ -4,15 +4,15 @@ test_that("load_datatype loads a specific ePIC schema", {
 })
 
 test_that("load_datatype loads ePIC schema properties correctly", {
-  dt <- load_datatype("https://doi.org/21.T11969/74bc7748b8cd520908bc")
-  prop_names <- dt$inferential_test_output()$prop_names
-  expected <- c("label", "has_description", "comment", "has_format")
+  dt <- load_datatype("https://doi.org/21.T11969/31483624b5c80014b6c7")
+  prop_names <- dt$matrix_size()$prop_names
+  expected <- c("number_of_rows", "number_of_columns")
   expect_equal(prop_names, expected)
 })
 
 test_that("load_datatype loads ORKG template properties correctly", {
-  dt <- load_datatype("https://incubating.orkg.org/template/R855534")
-  prop_names <- dt$inferential_test_output()$prop_names
-  expected <- c("has_format", "has_description", "comment", "label")
+  dt <- load_datatype("https://orkg.org/template/R758316")
+  prop_names <- dt$dtreg_test_template2()$prop_names
+  expected <- c("property3", "label")
   expect_equal(prop_names, expected)
 })

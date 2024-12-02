@@ -43,17 +43,41 @@ test_that("to_jsonld gives error when a field is a function", {
 })
 
 test_that("to_jsonld writes an ePIC instance into JSONLD", {
-  dt <- load_datatype("https://doi.org/21.T11969/74bc7748b8cd520908bc")
-  instance <- dt$inferential_test_output(has_format = dt$table(label = "Table"))
+  dt <- load_datatype("https://doi.org/21.T11969/aff130c76e68ead3862e")
+  df <- data.frame(A = 1, stringsAsFactors = FALSE)
+  instance <- dt$data_item(source_table = df)
   result <- to_jsonld(instance)
-  expected <- c(
-                "{",
+  expected <- c("{",
                 "  \"@id\": \"_:n1\",",
-                "  \"@type\": \"doi:74bc7748b8cd520908bc\",",
-                "  \"doi:74bc7748b8cd520908bc#has_format\": {",
-                "    \"@id\": \"_:n2\",",
+                "  \"@type\": \"doi:aff130c76e68ead3862e\",",
+                "  \"doi:aff130c76e68ead3862e#source_table\": {",
                 "    \"@type\": \"doi:0424f6e7026fa4bc2c4a\",",
-                "    \"doi:0424f6e7026fa4bc2c4a#label\": \"Table\"",
+                "    \"tab_label\": \"Table\",",
+                "    \"columns\": [",
+                "      {",
+                "        \"@type\": \"doi:65ba00e95e60fb8971e6\",",
+                "        \"col_number\": 1,",
+                "        \"col_titles\": \"A\",",
+                "        \"@id\": \"_:n2\"",
+                "      }",
+                "    ],",
+                "    \"rows\": [",
+                "      {",
+                "        \"@type\": \"doi:9bf7a8e8909bfd491b38\",",
+                "        \"row_number\": 1,",
+                "        \"row_titles\": \"1\",",
+                "        \"@id\": \"_:n3\",",
+                "        \"cells\": [",
+                "          {",
+                "            \"@type\": \"doi:4607bc7c42ac8db29bfc\",",
+                "            \"@id\": \"_:n4\",",
+                "            \"value\": \"1\",",
+                "            \"column\": \"_:n2\"",
+                "          }",
+                "        ]",
+                "      }",
+                "    ],",
+                "    \"@id\": \"_:n5\"",
                 "  },",
                 "  \"@context\": {",
                 "    \"doi\": \"https://doi.org/21.T11969/\",",
@@ -73,17 +97,46 @@ test_that("to_jsonld writes an ePIC instance into JSONLD", {
   expect_equal(capture.output(print(result)), expected)
 })
 
-test_that("to_jsonld writes an ePIC instance with a list of nested component", {
-  dt <- load_datatype("https://doi.org/21.T11969/74bc7748b8cd520908bc")
+test_that("to_jsonld writes an ePIC instance with a nested component", {
+  dt <- load_datatype("https://doi.org/21.T11969/aff130c76e68ead3862e")
+  url <- dt$url()
+  instance <- dt$data_item(has_expression = url)
+  result <- to_jsonld(instance)
+  expected <- c("{",
+                "  \"@id\": \"_:n1\",",
+                "  \"@type\": \"doi:aff130c76e68ead3862e\",",
+                "  \"doi:aff130c76e68ead3862e#has_expression\": {",
+                "    \"@id\": \"_:n2\",",
+                "    \"@type\": \"doi:e0efc41346cda4ba84ca\"",
+                "  },",
+                "  \"@context\": {",
+                "    \"doi\": \"https://doi.org/21.T11969/\",",
+                "    \"columns\": \"https://doi.org/21.T11969/0424f6e7026fa4bc2c4a#columns\",",
+                "    \"col_number\": \"https://doi.org/21.T11969/65ba00e95e60fb8971e6#number\",",
+                "    \"col_titles\": \"https://doi.org/21.T11969/65ba00e95e60fb8971e6#titles\",",
+                "    \"rows\": \"https://doi.org/21.T11969/0424f6e7026fa4bc2c4a#rows\",",
+                "    \"row_number\": \"https://doi.org/21.T11969/9bf7a8e8909bfd491b38#number\",",
+                "    \"row_titles\": \"https://doi.org/21.T11969/9bf7a8e8909bfd491b38#titles\",",
+                "    \"cells\": \"https://doi.org/21.T11969/9bf7a8e8909bfd491b38#cells\",",
+                "    \"column\": \"https://doi.org/21.T11969/4607bc7c42ac8db29bfc#column\",",
+                "    \"value\": \"https://doi.org/21.T11969/4607bc7c42ac8db29bfc#value\",",
+                "    \"tab_label\": \"https://doi.org/21.T11969/0424f6e7026fa4bc2c4a#label\"",
+                "  }",
+                "} ")
+
+  expect_equal(capture.output(print(result)), expected)
+})
+
+test_that("to_jsonld writes an ePIC instance with a list of nested components", {
+  dt <- load_datatype("https://doi.org/21.T11969/aff130c76e68ead3862e")
   url_1 <- dt$url()
   url_2 <- dt$url()
-  instance <- dt$inferential_test_output(has_description = c(url_1, url_2))
+  instance <- dt$data_item(has_expression = c(url_1, url_2))
   result <- to_jsonld(instance)
-  expected <- c(
-                "{",
+  expected <- c("{",
                 "  \"@id\": \"_:n1\",",
-                "  \"@type\": \"doi:74bc7748b8cd520908bc\",",
-                "  \"doi:74bc7748b8cd520908bc#has_description\": [",
+                "  \"@type\": \"doi:aff130c76e68ead3862e\",",
+                "  \"doi:aff130c76e68ead3862e#has_expression\": [",
                 "    {",
                 "      \"@id\": \"_:n2\",",
                 "      \"@type\": \"doi:e0efc41346cda4ba84ca\"",
@@ -113,56 +166,26 @@ test_that("to_jsonld writes an ePIC instance with a list of nested component", {
 
 
 test_that("to_jsonld writes an ORKG instance into JSONLD", {
-  dt <- dtreg::load_datatype("https://incubating.orkg.org/template/R855534")
-  df <- data.frame(A = 1, stringsAsFactors = FALSE)
-  instance <- dt$inferential_test_output(has_format = df)
-  result <- dtreg::to_jsonld(instance)
-  expected <- c(
-                "{",
+  dt <- load_datatype("https://orkg.org/template/R758316")
+  instance <- dt$dtreg_test_template2(label = "test")
+  result <- to_jsonld(instance)
+  expected <- c("{",
                 "  \"@id\": \"_:n1\",",
-                "  \"@type\": \"orkgr:R855534\",",
-                "  \"orkgp:P114000\": {",
-                "    \"@type\": \"orkgc:Table\",",
-                "    \"tab_label\": \"Table\",",
-                "    \"columns\": [",
-                "      {",
-                "        \"@type\": \"orkgc:Column\",",
-                "        \"col_number\": 1,",
-                "        \"col_titles\": \"A\",",
-                "        \"@id\": \"_:n2\"",
-                "      }",
-                "    ],",
-                "    \"rows\": [",
-                "      {",
-                "        \"@type\": \"orkgc:Row\",",
-                "        \"row_number\": 1,",
-                "        \"row_titles\": \"1\",",
-                "        \"@id\": \"_:n3\",",
-                "        \"cells\": [",
-                "          {",
-                "            \"@type\": \"orkgc:Cell\",",
-                "            \"@id\": \"_:n4\",",
-                "            \"value\": \"1\",",
-                "            \"column\": \"_:n2\"",
-                "          }",
-                "        ]",
-                "      }",
-                "    ],",
-                "    \"@id\": \"_:n5\"",
-                "  },",
+                "  \"@type\": \"orkgr:R758316\",",
+                "  \"label\": \"test\",",
                 "  \"@context\": {",
-                "    \"orkgc\": \"https://incubating.orkg.org/class/\",",
-                "    \"orkgr\": \"https://incubating.orkg.org/resource/\",",
-                "    \"orkgp\": \"https://incubating.orkg.org/property/\",",
-                "    \"columns\": \"https://incubating.orkg.org/property/CSVW_Columns\",",
-                "    \"col_number\": \"https://incubating.orkg.org/property/CSVW_Number\",",
-                "    \"col_titles\": \"https://incubating.orkg.org/property/CSVW_Titles\",",
-                "    \"rows\": \"https://incubating.orkg.org/property/CSVW_Rows\",",
-                "    \"row_number\": \"https://incubating.orkg.org/property/CSVW_Number\",",
-                "    \"row_titles\": \"https://incubating.orkg.org/property/CSVW_Titles\",",
-                "    \"cells\": \"https://incubating.orkg.org/property/CSVW_Cells\",",
-                "    \"column\": \"https://incubating.orkg.org/property/CSVW_Column\",",
-                "    \"value\": \"https://incubating.orkg.org/property/CSVW_Value\",",
+                "    \"orkgc\": \"https://orkg.org/class/\",",
+                "    \"orkgr\": \"https://orkg.org/resource/\",",
+                "    \"orkgp\": \"https://orkg.org/property/\",",
+                "    \"columns\": \"https://orkg.org/property/CSVW_Columns\",",
+                "    \"col_number\": \"https://orkg.org/property/CSVW_Number\",",
+                "    \"col_titles\": \"https://orkg.org/property/CSVW_Titles\",",
+                "    \"rows\": \"https://orkg.org/property/CSVW_Rows\",",
+                "    \"row_number\": \"https://orkg.org/property/CSVW_Number\",",
+                "    \"row_titles\": \"https://orkg.org/property/CSVW_Titles\",",
+                "    \"cells\": \"https://orkg.org/property/CSVW_Cells\",",
+                "    \"column\": \"https://orkg.org/property/CSVW_Column\",",
+                "    \"value\": \"https://orkg.org/property/CSVW_Value\",",
                 "    \"label\": \"http://www.w3.org/2000/01/rdf-schema#label\",",
                 "    \"tab_label\": \"http://www.w3.org/2000/01/rdf-schema#label\"",
                 "  }",

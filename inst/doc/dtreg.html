@@ -353,26 +353,21 @@ format.</p></li>
 <h2>1. Load a DTR schema</h2>
 <p>To load a DTR schema, you need to know its identifier (see the <a href="https://orkg.org/help-center/article/47/reborn_articles">help
 page</a>), such as the ePIC datatype DOI or the ORKG template URL.</p>
-<p>For instance, let us imagine you intend to use the “statistical test
-of difference” schema; it has the ePIC DOI “<a href="https://doi.org/21.T11969/ff5e3f857788d20dd1aa" class="uri">https://doi.org/21.T11969/ff5e3f857788d20dd1aa</a>”.</p>
+<p>For instance, let us imagine that you intend to report the results of
+Wilcoxon test. For that, you need the “group comparison” schema, which
+has the ePIC DOI “<a href="https://doi.org/21.T11969/b9335ce2c99ed87735a6" class="uri">https://doi.org/21.T11969/b9335ce2c99ed87735a6</a>”.</p>
 <p>If a valid identifier is used, you get an R object containing
 information about the DTR schema:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>dt <span class="ot">&lt;-</span> dtreg<span class="sc">::</span><span class="fu">load_datatype</span>(<span class="st">&quot;https://doi.org/21.T11969/ff5e3f857788d20dd1aa&quot;</span>)</span></code></pre></div>
-<p>In addition to the schema you requested (in this case, the
-“statistical test of difference”), you get schemata that you might need
-for using it (see <a href="#section2">Nested structure</a>). You can
-look at the list of these schemata:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>dt <span class="ot">&lt;-</span> dtreg<span class="sc">::</span><span class="fu">load_datatype</span>(<span class="st">&quot;https://doi.org/21.T11969/b9335ce2c99ed87735a6&quot;</span>)</span></code></pre></div>
+<p>In addition to the schema you requested (in this case, the “group
+comparison”), you get schemata that you might need for using it (see <a href="#section2">Nested structure</a>). You can look at the list of
+these schemata:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">names</span>(dt)</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;string&quot;                         &quot;software&quot;                      </span></span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="co">#&gt;  [3] &quot;url&quot;                            &quot;software_library&quot;              </span></span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co">#&gt;  [5] &quot;software_method&quot;                &quot;statistical_variable&quot;          </span></span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="co">#&gt;  [7] &quot;integer_in_string&quot;              &quot;sample_size&quot;                   </span></span>
-<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co">#&gt;  [9] &quot;column&quot;                         &quot;cell&quot;                          </span></span>
-<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co">#&gt; [11] &quot;row&quot;                            &quot;table&quot;                         </span></span>
-<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co">#&gt; [13] &quot;data_input&quot;                     &quot;outcome_variable&quot;              </span></span>
-<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="co">#&gt; [15] &quot;grouping_factor&quot;                &quot;interaction_effect&quot;            </span></span>
-<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="co">#&gt; [17] &quot;covariate&quot;                      &quot;inferential_test_output&quot;       </span></span>
-<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="co">#&gt; [19] &quot;statistical_test_of_difference&quot;</span></span></code></pre></div>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;string&quot;            &quot;url&quot;               &quot;software&quot;         </span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="co">#&gt;  [4] &quot;software_library&quot;  &quot;software_method&quot;   &quot;component&quot;        </span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co">#&gt;  [7] &quot;integer_in_string&quot; &quot;column&quot;            &quot;cell&quot;             </span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="co">#&gt; [10] &quot;row&quot;               &quot;table&quot;             &quot;matrix_size&quot;      </span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co">#&gt; [13] &quot;figure&quot;            &quot;data_item&quot;         &quot;group_comparison&quot;</span></span></code></pre></div>
 </div>
 <div id="create-an-instance" class="section level2">
 <h2>2. Create an instance</h2>
@@ -383,13 +378,12 @@ Therefore, you need to create an instance of a specific class.</p>
 <h3>Fields</h3>
 <p>For doing that, you first need to know which fields you can use for
 the selected schema:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>dtreg<span class="sc">::</span><span class="fu">show_fields</span>(dt<span class="sc">$</span><span class="fu">statistical_test_of_difference</span>())</span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="co">#&gt; [1] &quot;has_specified_output&quot; &quot;has_characteristic&quot;   &quot;has_part&quot;            </span></span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="co">#&gt; [4] &quot;difference_between&quot;   &quot;evaluates&quot;            &quot;has_specified_input&quot; </span></span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="co">#&gt; [7] &quot;executes&quot;             &quot;label&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>dtreg<span class="sc">::</span><span class="fu">show_fields</span>(dt<span class="sc">$</span><span class="fu">group_comparison</span>())</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="co">#&gt; [1] &quot;has_output&quot; &quot;has_input&quot;  &quot;targets&quot;    &quot;executes&quot;   &quot;see_also&quot;  </span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="co">#&gt; [6] &quot;label&quot;</span></span></code></pre></div>
 <p>For example, this schema has the field “label”. If your instance
 included only a label, it would be:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>labelled_inst <span class="ot">&lt;-</span> dt<span class="sc">$</span><span class="fu">statistical_test_of_difference</span>(<span class="at">label =</span> <span class="st">&quot;my_test_results&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>labelled_inst <span class="ot">&lt;-</span> dt<span class="sc">$</span><span class="fu">group_comparison</span>(<span class="at">label =</span> <span class="st">&quot;my_test_results&quot;</span>)</span></code></pre></div>
 <p>However, the data you want to write are usually more complex than
 this. The <a href="https://orkg.org/help-center/article/47/reborn_articles">help
 page</a> specifies which fields to use and what input is required by a
@@ -403,10 +397,11 @@ frame. Strings are used for labels and comments, and URLs are also
 presented as strings:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>method_url <span class="ot">&lt;-</span> dt<span class="sc">$</span><span class="fu">software_method</span>(<span class="at">has_support_url =</span> <span class="st">&quot;https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/wilcox.test&quot;</span>)</span></code></pre></div>
 <p>Numeric values are also frequently used:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>sample_size <span class="ot">&lt;-</span> dt<span class="sc">$</span><span class="fu">sample_size</span>(<span class="at">has_specified_numeric_value =</span> <span class="dv">50</span>)</span></code></pre></div>
-<p>Some fields, such as “has_format”, require a data frame:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>dimensions <span class="ot">&lt;-</span> dt<span class="sc">$</span><span class="fu">matrix_size</span>(<span class="at">number_of_rows =</span> <span class="dv">50</span>,</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>                             <span class="at">number_of_columns =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p>Some fields, such as “source_table”, require a data frame:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>my_dataframe <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">W =</span> <span class="fl">44.5</span>, <span class="at">p =</span> <span class="fl">2.2e-16</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>output_dataframe <span class="ot">&lt;-</span> dt<span class="sc">$</span><span class="fu">inferential_test_output</span>(<span class="at">has_format =</span> my_dataframe)</span></code></pre></div>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>output_dataframe <span class="ot">&lt;-</span> dt<span class="sc">$</span><span class="fu">data_item</span>(<span class="at">source_table =</span> my_dataframe)</span></code></pre></div>
 <p>Please check which elements you include in your data frame and how
 you assign the columns. When in doubt, look at your column with:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">class</span>(my_dataframe<span class="sc">$</span>W)</span></code></pre></div>
@@ -419,7 +414,7 @@ always include first the data frame and then the name as a string in the
 tuple:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">library</span>(sets)</span>
 <span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>my_tuple <span class="ot">&lt;-</span> sets<span class="sc">::</span><span class="fu">tuple</span>(my_dataframe, <span class="st">&quot;the Wilcoxon test results&quot;</span>)</span>
-<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>output_tuple <span class="ot">&lt;-</span> dt<span class="sc">$</span><span class="fu">inferential_test_output</span>(<span class="at">has_format =</span> my_tuple)</span></code></pre></div>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>output_tuple <span class="ot">&lt;-</span> dt<span class="sc">$</span><span class="fu">data_item</span>(<span class="at">source_table =</span> my_tuple)</span></code></pre></div>
 <p>These are the most frequently used types of input that you write in a
 field.</p>
 </div>
@@ -427,9 +422,9 @@ field.</p>
 <h3>More than one input in a field</h3>
 <p>Sometimes a few objects should be written in one field. In this case,
 simply concatenate them:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>var_1 <span class="ot">&lt;-</span> dt<span class="sc">$</span><span class="fu">statistical_variable</span>(<span class="at">label =</span> <span class="st">&quot;var_1&quot;</span>)</span>
-<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>var_2 <span class="ot">&lt;-</span> dt<span class="sc">$</span><span class="fu">statistical_variable</span>(<span class="at">label =</span> <span class="st">&quot;var_2&quot;</span>)</span>
-<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>two_vars <span class="ot">&lt;-</span> dt<span class="sc">$</span><span class="fu">statistical_test_of_difference</span>(<span class="at">evaluates =</span> <span class="fu">c</span>(var_1, var_2))</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>var_1 <span class="ot">&lt;-</span> dt<span class="sc">$</span><span class="fu">component</span>(<span class="at">label =</span> <span class="st">&quot;var_1&quot;</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>var_2 <span class="ot">&lt;-</span> dt<span class="sc">$</span><span class="fu">component</span>(<span class="at">label =</span> <span class="st">&quot;var_2&quot;</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>two_vars <span class="ot">&lt;-</span> dt<span class="sc">$</span><span class="fu">group_comparison</span>(<span class="at">targets =</span> <span class="fu">c</span>(var_1, var_2))</span></code></pre></div>
 </div>
 <div id="section2" class="section level3">
 <h3>Nested structure</h3>
@@ -437,10 +432,8 @@ simply concatenate them:</p>
 require another schema. This nested structure is important for making
 the data machine readable. The example above can be also written this
 way, and you can choose which is more convenient for you:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>two_vars <span class="ot">&lt;-</span> dt<span class="sc">$</span><span class="fu">statistical_test_of_difference</span>(<span class="at">evaluates =</span> <span class="fu">c</span>(</span>
-<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>  dt<span class="sc">$</span><span class="fu">statistical_variable</span>(<span class="at">label =</span> <span class="st">&quot;var_1&quot;</span>),</span>
-<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>  dt<span class="sc">$</span><span class="fu">statistical_variable</span>(<span class="at">label =</span> <span class="st">&quot;var_2&quot;</span>)</span>
-<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>))</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>two_vars <span class="ot">&lt;-</span> dt<span class="sc">$</span><span class="fu">group_comparison</span>(<span class="at">targets =</span> <span class="fu">c</span>(dt<span class="sc">$</span><span class="fu">component</span>(<span class="at">label =</span> <span class="st">&quot;var_1&quot;</span>),</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>                                            dt<span class="sc">$</span><span class="fu">component</span>(<span class="at">label =</span> <span class="st">&quot;var_2&quot;</span>)))</span></code></pre></div>
 <p>None of the fields are mandatory: you will not get an error message
 if you leave any field, or all of them, empty. It makes sense, though,
 to create a useful JSON-LD file.</p>
@@ -467,33 +460,29 @@ the ePIC datatype statistical_test_of_difference (see <a href="#section1">Load a
 <span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a></span>
 <span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a>soft_method <span class="ot">&lt;-</span> dt<span class="sc">$</span><span class="fu">software_method</span>(</span>
 <span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a>  <span class="at">label =</span> <span class="st">&quot;Wilcoxon rank sum test&quot;</span>,</span>
-<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a>  <span class="at">uses_software =</span> soft_library,</span>
-<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a>  <span class="at">is_implemented_by =</span> <span class="st">&quot;URL_code&quot;</span></span>
+<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a>  <span class="at">part_of =</span> soft_library,</span>
+<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a>  <span class="at">is_implemented_by =</span> <span class="st">&quot;stats::wilcox.test(versicolor$Petal.Length, virginica$Petal.Length)&quot;</span></span>
 <span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a>)</span></code></pre></div>
 <p>Now we can add information about the input data:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>sample_size <span class="ot">&lt;-</span> dt<span class="sc">$</span><span class="fu">sample_size</span>(<span class="at">has_specified_numeric_value =</span> <span class="dv">50</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>input <span class="ot">&lt;-</span> dt<span class="sc">$</span><span class="fu">data_input</span>(<span class="at">label =</span> <span class="st">&quot;Iris: virginia and versicolor&quot;</span>,</span>
-<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>                       <span class="at">has_characteristic =</span> sample_size,</span>
-<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>                       <span class="at">source =</span></span>
-<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>                         <span class="st">&quot;https://search.r-project.org/CRAN/refmans/MVTests/html/iris.html&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>dimensions <span class="ot">&lt;-</span> dt<span class="sc">$</span><span class="fu">matrix_size</span>(<span class="at">number_of_rows =</span> <span class="dv">50</span>,</span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>                             <span class="at">number_of_columns =</span> <span class="dv">2</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>input <span class="ot">&lt;-</span> dt<span class="sc">$</span><span class="fu">data_item</span>(<span class="at">label =</span> <span class="st">&quot;Iris: virginica and versicolor&quot;</span>,</span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>                      <span class="at">has_characteristic =</span> dimensions,</span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>                      <span class="at">source_url =</span></span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a>                        <span class="st">&quot;https://search.r-project.org/CRAN/refmans/MVTests/html/iris.html&quot;</span>)</span></code></pre></div>
 <p>And now the vectors, or the variables, that were compared:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>virginia <span class="ot">&lt;-</span> dt<span class="sc">$</span><span class="fu">statistical_variable</span>(<span class="at">label =</span> <span class="st">&quot;petal length virginia&quot;</span>,</span>
-<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>                                    <span class="at">has_format =</span> <span class="st">&quot;numeric&quot;</span>)</span>
-<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a>versicolor <span class="ot">&lt;-</span></span>
-<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a>  dt<span class="sc">$</span><span class="fu">statistical_variable</span>(<span class="at">label =</span> <span class="st">&quot;petal length versicolor&quot;</span>,</span>
-<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a>                          <span class="at">has_format =</span> <span class="st">&quot;numeric&quot;</span>)</span>
-<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a>variables <span class="ot">&lt;-</span> dt<span class="sc">$</span><span class="fu">outcome_variable</span>(<span class="at">label =</span> <span class="st">&quot;virginia vs versicolor&quot;</span>,</span>
-<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a>                                 <span class="at">requires =</span> <span class="fu">c</span>(virginia, versicolor))</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>virginica <span class="ot">&lt;-</span> dt<span class="sc">$</span><span class="fu">component</span>(<span class="at">label =</span> <span class="st">&quot;petal length virginica&quot;</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>versicolor <span class="ot">&lt;-</span> dt<span class="sc">$</span><span class="fu">component</span>(<span class="at">label =</span> <span class="st">&quot;petal length versicolor&quot;</span>)</span></code></pre></div>
 <p>Finally, we have the results of the test:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>df_result <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">W =</span> <span class="fl">44.5</span>, <span class="at">p =</span> <span class="fl">2.2e-16</span>)</span>
-<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>output <span class="ot">&lt;-</span> dt<span class="sc">$</span><span class="fu">inferential_test_output</span>(<span class="at">has_format =</span> df_result)</span></code></pre></div>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>output <span class="ot">&lt;-</span> dt<span class="sc">$</span><span class="fu">data_item</span>(<span class="at">source_table =</span> df_result)</span></code></pre></div>
 <p>Let us now write everything together in the final instance:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>wilcoxon_inst <span class="ot">&lt;-</span> dt<span class="sc">$</span><span class="fu">statistical_test_of_difference</span>(</span>
-<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a>  <span class="at">label =</span> <span class="st">&quot;Wilcoxon petal length, virginia vs versicolor&quot;</span>,</span>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>wilcoxon_inst <span class="ot">&lt;-</span> dt<span class="sc">$</span><span class="fu">group_comparison</span>(</span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a>  <span class="at">label =</span> <span class="st">&quot;Wilcoxon petal length, virginica vs versicolor&quot;</span>,</span>
 <span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a>  <span class="at">executes =</span> soft_method,</span>
-<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a>  <span class="at">has_specified_input =</span> input,</span>
-<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a>  <span class="at">evaluates =</span> variables,</span>
-<span id="cb17-6"><a href="#cb17-6" tabindex="-1"></a>  <span class="at">has_specified_output =</span> result</span>
+<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a>  <span class="at">has_input =</span> input,</span>
+<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a>  <span class="at">targets =</span> <span class="fu">c</span>(virginica, versicolor),</span>
+<span id="cb17-6"><a href="#cb17-6" tabindex="-1"></a>  <span class="at">has_output =</span> output</span>
 <span id="cb17-7"><a href="#cb17-7" tabindex="-1"></a>)</span></code></pre></div>
 <p>Please be attentive when writing the results. In case you misspell a
 variable, omit a comma separating two fields, forget a closing bracket,
@@ -516,7 +505,7 @@ working directory:</p>
 <p>The code of the example above is given in one chunk here:</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="fu">library</span>(dtreg)</span>
 <span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>dt <span class="ot">&lt;-</span></span>
-<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a>  dtreg<span class="sc">::</span><span class="fu">load_datatype</span>(<span class="st">&quot;https://doi.org/21.T11969/ff5e3f857788d20dd1aa&quot;</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a>  dtreg<span class="sc">::</span><span class="fu">load_datatype</span>(<span class="st">&quot;https://doi.org/21.T11969/b9335ce2c99ed87735a6&quot;</span>)</span>
 <span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a></span>
 <span id="cb20-5"><a href="#cb20-5" tabindex="-1"></a>software <span class="ot">&lt;-</span> dt<span class="sc">$</span><span class="fu">software</span>(<span class="at">label =</span> <span class="st">&quot;R&quot;</span>,</span>
 <span id="cb20-6"><a href="#cb20-6" tabindex="-1"></a>                        <span class="at">versioninfo =</span> <span class="st">&quot;4.3.1&quot;</span>)</span>
@@ -528,35 +517,31 @@ working directory:</p>
 <span id="cb20-12"><a href="#cb20-12" tabindex="-1"></a>)</span>
 <span id="cb20-13"><a href="#cb20-13" tabindex="-1"></a>soft_method <span class="ot">&lt;-</span> dt<span class="sc">$</span><span class="fu">software_method</span>(</span>
 <span id="cb20-14"><a href="#cb20-14" tabindex="-1"></a>  <span class="at">label =</span> <span class="st">&quot;Wilcoxon rank sum test&quot;</span>,</span>
-<span id="cb20-15"><a href="#cb20-15" tabindex="-1"></a>  <span class="at">uses_software =</span> soft_library,</span>
-<span id="cb20-16"><a href="#cb20-16" tabindex="-1"></a>  <span class="at">is_implemented_by =</span> <span class="st">&quot;url_code&quot;</span></span>
+<span id="cb20-15"><a href="#cb20-15" tabindex="-1"></a>  <span class="at">part_of =</span> soft_library,</span>
+<span id="cb20-16"><a href="#cb20-16" tabindex="-1"></a>  <span class="at">is_implemented_by =</span> <span class="st">&quot;stats::wilcox.test(versicolor$Petal.Length, virginica$Petal.Length)&quot;</span></span>
 <span id="cb20-17"><a href="#cb20-17" tabindex="-1"></a>)</span>
-<span id="cb20-18"><a href="#cb20-18" tabindex="-1"></a>sample_size <span class="ot">&lt;-</span> dt<span class="sc">$</span><span class="fu">sample_size</span>(<span class="at">has_specified_numeric_value =</span> <span class="dv">50</span>)</span>
-<span id="cb20-19"><a href="#cb20-19" tabindex="-1"></a>input <span class="ot">&lt;-</span> dt<span class="sc">$</span><span class="fu">data_input</span>(<span class="at">label =</span> <span class="st">&quot;Iris: virginia and versicolor&quot;</span>,</span>
-<span id="cb20-20"><a href="#cb20-20" tabindex="-1"></a>                       <span class="at">has_characteristic =</span> sample_size,</span>
-<span id="cb20-21"><a href="#cb20-21" tabindex="-1"></a>                       <span class="at">source =</span> <span class="st">&quot;https://search.r-project.org/CRAN/refmans/MVTests/html/iris.html&quot;</span>)</span>
-<span id="cb20-22"><a href="#cb20-22" tabindex="-1"></a>virginia <span class="ot">&lt;-</span> dt<span class="sc">$</span><span class="fu">statistical_variable</span>(<span class="at">label =</span> <span class="st">&quot;petal length virginia&quot;</span>,</span>
-<span id="cb20-23"><a href="#cb20-23" tabindex="-1"></a>                                    <span class="at">has_format =</span> <span class="st">&quot;numeric&quot;</span>)</span>
-<span id="cb20-24"><a href="#cb20-24" tabindex="-1"></a>versicolor <span class="ot">&lt;-</span></span>
-<span id="cb20-25"><a href="#cb20-25" tabindex="-1"></a>  dt<span class="sc">$</span><span class="fu">statistical_variable</span>(<span class="at">label =</span> <span class="st">&quot;petal length versicolor&quot;</span>,</span>
-<span id="cb20-26"><a href="#cb20-26" tabindex="-1"></a>                          <span class="at">has_format =</span> <span class="st">&quot;numeric&quot;</span>)</span>
-<span id="cb20-27"><a href="#cb20-27" tabindex="-1"></a>variables <span class="ot">&lt;-</span> dt<span class="sc">$</span><span class="fu">outcome_variable</span>(<span class="at">label =</span> <span class="st">&quot;virginia vs versicolor&quot;</span>,</span>
-<span id="cb20-28"><a href="#cb20-28" tabindex="-1"></a>                                 <span class="at">requires =</span> <span class="fu">c</span>(virginia, versicolor))</span>
-<span id="cb20-29"><a href="#cb20-29" tabindex="-1"></a>df_result <span class="ot">&lt;-</span></span>
-<span id="cb20-30"><a href="#cb20-30" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">W =</span> <span class="fl">44.5</span>,</span>
-<span id="cb20-31"><a href="#cb20-31" tabindex="-1"></a>             <span class="at">p =</span> <span class="fl">2.2e-16</span>,</span>
-<span id="cb20-32"><a href="#cb20-32" tabindex="-1"></a>             <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb20-33"><a href="#cb20-33" tabindex="-1"></a>output <span class="ot">&lt;-</span> dt<span class="sc">$</span><span class="fu">inferential_test_output</span>(<span class="at">has_format =</span> df_result)</span>
-<span id="cb20-34"><a href="#cb20-34" tabindex="-1"></a>wilcoxon_inst <span class="ot">&lt;-</span> dt<span class="sc">$</span><span class="fu">statistical_test_of_difference</span>(</span>
-<span id="cb20-35"><a href="#cb20-35" tabindex="-1"></a>  <span class="at">label =</span> <span class="st">&quot;Wilcoxon iris petal length, virginia vs versicolor&quot;</span>,</span>
-<span id="cb20-36"><a href="#cb20-36" tabindex="-1"></a>  <span class="at">executes =</span> soft_method,</span>
-<span id="cb20-37"><a href="#cb20-37" tabindex="-1"></a>  <span class="at">has_specified_input =</span> input,</span>
-<span id="cb20-38"><a href="#cb20-38" tabindex="-1"></a>  <span class="at">evaluates =</span> variables,</span>
-<span id="cb20-39"><a href="#cb20-39" tabindex="-1"></a>  <span class="at">has_specified_output =</span> output</span>
-<span id="cb20-40"><a href="#cb20-40" tabindex="-1"></a>)</span>
-<span id="cb20-41"><a href="#cb20-41" tabindex="-1"></a></span>
-<span id="cb20-42"><a href="#cb20-42" tabindex="-1"></a>wilcoxon_json <span class="ot">&lt;-</span> dtreg<span class="sc">::</span><span class="fu">to_jsonld</span>(wilcoxon_inst)</span>
-<span id="cb20-43"><a href="#cb20-43" tabindex="-1"></a><span class="fu">write</span>(wilcoxon_json, <span class="st">&quot;wilcoxon_file.json&quot;</span>)</span></code></pre></div>
+<span id="cb20-18"><a href="#cb20-18" tabindex="-1"></a>dimensions <span class="ot">&lt;-</span> dt<span class="sc">$</span><span class="fu">matrix_size</span>(<span class="at">number_of_rows =</span> <span class="dv">50</span>,</span>
+<span id="cb20-19"><a href="#cb20-19" tabindex="-1"></a>                             <span class="at">number_of_columns =</span> <span class="dv">2</span>)</span>
+<span id="cb20-20"><a href="#cb20-20" tabindex="-1"></a>input <span class="ot">&lt;-</span> dt<span class="sc">$</span><span class="fu">data_item</span>(<span class="at">label =</span> <span class="st">&quot;Iris: virginica and versicolor&quot;</span>,</span>
+<span id="cb20-21"><a href="#cb20-21" tabindex="-1"></a>                      <span class="at">has_characteristic =</span> dimensions,</span>
+<span id="cb20-22"><a href="#cb20-22" tabindex="-1"></a>                      <span class="at">source_url =</span> <span class="st">&quot;https://search.r-project.org/CRAN/refmans/MVTests/html/iris.html&quot;</span>)</span>
+<span id="cb20-23"><a href="#cb20-23" tabindex="-1"></a>virginica <span class="ot">&lt;-</span> dt<span class="sc">$</span><span class="fu">component</span>(<span class="at">label =</span> <span class="st">&quot;petal length virginica&quot;</span>)</span>
+<span id="cb20-24"><a href="#cb20-24" tabindex="-1"></a>versicolor <span class="ot">&lt;-</span> dt<span class="sc">$</span><span class="fu">component</span>(<span class="at">label =</span> <span class="st">&quot;petal length versicolor&quot;</span>)</span>
+<span id="cb20-25"><a href="#cb20-25" tabindex="-1"></a>df_result <span class="ot">&lt;-</span></span>
+<span id="cb20-26"><a href="#cb20-26" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">W =</span> <span class="fl">44.5</span>,</span>
+<span id="cb20-27"><a href="#cb20-27" tabindex="-1"></a>             <span class="at">p =</span> <span class="fl">2.2e-16</span>,</span>
+<span id="cb20-28"><a href="#cb20-28" tabindex="-1"></a>             <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb20-29"><a href="#cb20-29" tabindex="-1"></a>output <span class="ot">&lt;-</span> dt<span class="sc">$</span><span class="fu">data_item</span>(<span class="at">source_table =</span> df_result)</span>
+<span id="cb20-30"><a href="#cb20-30" tabindex="-1"></a>wilcoxon_inst <span class="ot">&lt;-</span> dt<span class="sc">$</span><span class="fu">group_comparison</span>(</span>
+<span id="cb20-31"><a href="#cb20-31" tabindex="-1"></a>  <span class="at">label =</span> <span class="st">&quot;Wilcoxon iris petal length, virginica vs versicolor&quot;</span>,</span>
+<span id="cb20-32"><a href="#cb20-32" tabindex="-1"></a>  <span class="at">executes =</span> soft_method,</span>
+<span id="cb20-33"><a href="#cb20-33" tabindex="-1"></a>  <span class="at">has_input =</span> input,</span>
+<span id="cb20-34"><a href="#cb20-34" tabindex="-1"></a>  <span class="at">targets =</span> <span class="fu">c</span>(virginica, versicolor),</span>
+<span id="cb20-35"><a href="#cb20-35" tabindex="-1"></a>  <span class="at">has_output =</span> output</span>
+<span id="cb20-36"><a href="#cb20-36" tabindex="-1"></a>)</span>
+<span id="cb20-37"><a href="#cb20-37" tabindex="-1"></a></span>
+<span id="cb20-38"><a href="#cb20-38" tabindex="-1"></a>wilcoxon_json <span class="ot">&lt;-</span> dtreg<span class="sc">::</span><span class="fu">to_jsonld</span>(wilcoxon_inst)</span>
+<span id="cb20-39"><a href="#cb20-39" tabindex="-1"></a><span class="fu">write</span>(wilcoxon_json, <span class="st">&quot;wilcoxon_file.json&quot;</span>)</span></code></pre></div>
 </div>
 
 
