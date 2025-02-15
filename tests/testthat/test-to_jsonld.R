@@ -35,10 +35,10 @@ test_that("to_jsonld gives error when a field is a function", {
   abc <- function(x) {
     return(x + 1)
   }
-  dt <- load_datatype("https://doi.org/21.T11969/74bc7748b8cd520908bc")
-  instance <- dt$inferential_test_output(has_format = abc)
+  dt <- load_datatype("https://doi.org/21.T11969/aff130c76e68ead3862e")
+  instance <- dt$data_item(source_table = abc)
   expect_error(to_jsonld(instance),
-               "Input in  has_format  should not be a function",
+               "Input in source_table should not be a function",
                fixed = TRUE)
 })
 
@@ -166,6 +166,7 @@ test_that("to_jsonld writes an ePIC instance with a list of nested components", 
 
 
 test_that("to_jsonld writes an ORKG instance into JSONLD", {
+  local_mocked_bindings(request_dtr = mocked_request_orkg)
   dt <- load_datatype("https://orkg.org/template/R758316")
   instance <- dt$dtreg_test_template2(label = "test")
   result <- to_jsonld(instance)

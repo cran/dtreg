@@ -6,8 +6,8 @@
 #' @return JSON string in JSON-LD format
 #' @export
 #' @examples
-#' dt <- dtreg::load_datatype("https://doi.org/21.T11969/74bc7748b8cd520908bc")
-#' instance <- dt$inferential_test_output(label = "my_results")
+#' dt <- dtreg::load_datatype("https://doi.org/21.T11969/aff130c76e68ead3862e")
+#' instance <- dt$data_item(label = "my_results")
 #' result <- dtreg::to_jsonld(instance)
 #'
 to_jsonld <- function(instance) {
@@ -26,7 +26,7 @@ to_jsonld <- function(instance) {
       if (is.null(instance_field)) {
         next
       } else if (is.function(instance_field)) {
-        stop(paste("Input in ", field, " should not be a function"))
+        stop(paste("Input in", field, "should not be a function"))
       } else if (is.list(instance_field) &&
                    inherits(instance_field[[1]], "R6")) {
         result[[prop_type]] <- lapply(instance_field, write_info)

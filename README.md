@@ -46,10 +46,7 @@ devtools::install_gitlab("TIBHannover/orkg/dtreg-r", build_vignettes = TRUE)
 
 This brief example shows you how to work with a DTR schema. You need to
 know the schema identifier (see the [help
-page](https://orkg.org/help-center/article/47/reborn_articles) ). For
-instance, the schema “data item” requires the ePIC datatype with the DOI
-<https://doi.org/21.T11969/aff130c76e68ead3862e>. For the ORKG, please
-use the ORKG template URL, such as <https://orkg.org/template/R758316>.
+page](https://reborn.orkg.org/pages/help) ).
 
 ``` r
 library(dtreg)
@@ -57,15 +54,8 @@ library(dtreg)
 dt <- dtreg::load_datatype("https://doi.org/21.T11969/aff130c76e68ead3862e")
 ## look at the schemata you might need to use
 names(dt)
-#>  [1] "string"            "url"               "integer_in_string"
-#>  [4] "column"            "cell"              "row"              
-#>  [7] "table"             "component"         "matrix_size"      
-#> [10] "figure"            "data_item"
 ## check available fields for your schema
 dtreg::show_fields(dt$data_item())
-#> [1] "comment"            "has_expression"     "has_characteristic"
-#> [4] "has_part"           "source_table"       "source_url"        
-#> [7] "label"
 ## create your own instance by filling the fields of your choice
 ## see the help page to know more about the fields
 my_label = "my results"
@@ -74,7 +64,7 @@ url_1 <- dt$url(label = "URL_1")
 url_2 <- dt$url(label = "URL_2")
 my_inst <- dt$data_item(
   label = my_label,
-  has_expression = c(url_1, url_2),
+  has_expression = list(url_1, url_2),
   source_table = my_df
 )
 ## write the instance in JSON-LD format as a string
@@ -85,8 +75,8 @@ my_json <- dtreg::to_jsonld(my_inst)
 ```
 
 For more information, please see the [help
-page](https://orkg.org/help-center/article/47/reborn_articles) and dtreg
-vignette. To access the vignette, you can run:
+page](https://reborn.orkg.org/pages/help) and dtreg vignette. To access
+the vignette, you can run:
 
 ``` r
 vignette("dtreg", package="dtreg")
