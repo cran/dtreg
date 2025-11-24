@@ -11,18 +11,18 @@ You can load a schema from a DTR (data type registry) as an R object. Use this s
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://gitlab.com/TIBHannover/orkg/dtreg-r}
-  \item Report bugs at \url{https://gitlab.com/TIBHannover/orkg/dtreg-r/-/issues}
+  \item \url{https://gitlab.com/TIBHannover/lki/knowledge-loom/dtreg-r}
+  \item Report bugs at \url{https://gitlab.com/TIBHannover/lki/knowledge-loom/dtreg-r/-/issues}
 }
 
 }
 \author{
-\strong{Maintainer}: Olga Lezhnina \email{olga.lezhnina@tib.eu} (\href{https://orcid.org/0000-0003-2237-7725}{ORCID})
+\strong{Maintainer}: Markus Stocker \email{markus.stocker@tib.eu} (\href{https://orcid.org/0000-0001-5492-3212}{ORCID})
 
 Authors:
 \itemize{
+  \item Olga Lezhnina \email{olga.lezhnina@tib.eu} (\href{https://orcid.org/0000-0003-2237-7725}{ORCID})
   \item Manuel Prinz \email{manuel.prinz@tib.eu} (\href{https://orcid.org/0000-0003-2151-4556}{ORCID})
-  \item Markus Stocker \email{markus.stocker@tib.eu} (\href{https://orcid.org/0000-0001-5492-3212}{ORCID})
 }
 
 Other contributors:

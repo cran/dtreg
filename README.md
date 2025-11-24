@@ -5,11 +5,13 @@
 
 <!-- badges: start -->
 
+![coverage](https://gitlab.com/TIBHannover/lki/knowledge-loom/dtreg-r/badges/master/coverage.svg)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/dtreg)](https://CRAN.R-project.org/package=dtreg)
-[![Coverage
-Status](https://coveralls.io/repos/github/OlgaLezhnina/dtreg_R/badge.svg?branch=master)](https://coveralls.io/github/OlgaLezhnina/dtreg_R?branch=master)
 <!-- badges: end -->
+
+**100% AI-free: we did not use any AI technologies in developing this
+package.**
 
 The goal of dtreg is to help users interact with various data type
 registries (DTRs) and create machine-readable data. Currently, we
@@ -39,14 +41,14 @@ You can install the development version of dtreg with:
 ``` r
 # install.packages("devtools")
 library(devtools)
-devtools::install_gitlab("TIBHannover/orkg/dtreg-r", build_vignettes = TRUE)
+devtools::install_gitlab("TIBHannover/lki/knowledge-loom/dtreg-r", build_vignettes = TRUE)
 ```
 
 ## Example
 
 This brief example shows you how to work with a DTR schema. You need to
 know the schema identifier (see the [help
-page](https://reborn.orkg.org/pages/help) ).
+page](https://knowledgeloom.tib.eu/pages/help) ).
 
 ``` r
 library(dtreg)
@@ -75,8 +77,8 @@ my_json <- dtreg::to_jsonld(my_inst)
 ```
 
 For more information, please see the [help
-page](https://reborn.orkg.org/pages/help) and dtreg vignette. To access
-the vignette, you can run:
+page](https://knowledgeloom.tib.eu/pages/help) and dtreg vignette. To
+access the vignette, you can run:
 
 ``` r
 vignette("dtreg", package="dtreg")

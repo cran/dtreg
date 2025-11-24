@@ -1,7 +1,7 @@
-efcbfc35c69825968c404aefb20e2587 *DESCRIPTION
+9bcae1dc129250d5becfc295eb57349e *DESCRIPTION
 af94e2cef7d0120764cdcd0ed7b8c876 *LICENSE
 500c5817f06214a90fa09e52869f11ab *NAMESPACE
-a01f60e36e3635368030f575584d92ee *NEWS.md
+bd647167df2d072af3d277a64e007bc7 *NEWS.md
 5d9a1afead22e3fc46fa5520e131ba4e *R/aaa_environment.R
 86d50e0e912720f4d21a473d06d34393 *R/dtr_interface.R
 df6cc46bc7fae1a55b713f3d5065b35a *R/dtreg-package.R
@@ -13,11 +13,11 @@ f5149f92acb49a4e2a399f91677e5a1f *R/extract_epic.R
 ad42432b36bf0896fef5b32e4b4394cb *R/request_dtr.R
 59f4d084790f18b99f6c1a453280b2ac *R/to_jsonld.R
 a3e88fe6c5df628f78c85b43ba9087bd *R/xxx_onload.R
-63b91009975abbf9ba0ca26c179f1fbf *README.md
+713ed6d0fe0b8556f24618e1f4759f4b *README.md
 5ec37dc83028433896e39b4c83f171d4 *build/vignette.rds
 1fae37caa6fbc557e303ff9f4bdd3e2d *inst/doc/dtreg.R
-b5790741056caa3c9575d5d5c2144f5e *inst/doc/dtreg.Rmd
-4ff7687722cf4b8da71f8c16b5495953 *inst/doc/dtreg.html
+676aa0b2b36eb4990b023080ca574de7 *inst/doc/dtreg.Rmd
+d2b3afdbd1303abe6baed91cd7f85276 *inst/doc/dtreg.html
 df30cda98d44d9fb956a6ec13bef304c *inst/extdata/ePIC-21-T11909-0424f6e7026fa4bc2c4a.json
 10acd0830d9aa60b26be8c106e34cb1a *inst/extdata/ePIC-21-T11909-1f20e66b17a6eb7c2baf.json
 c3fd96aed8183e4ed77fdf555d2d9c02 *inst/extdata/ePIC-21-T11909-286991b26f02d58ee490.json
@@ -42,8 +42,8 @@ b4e0d0653528c57cd4cc8ca25dd462d0 *inst/extdata/ePIC-21-T11909-c6b413ba96ba477b5d
 8817e62f463c7e8350b332ed264b4708 *inst/extdata/ePIC-21-T11909-cceac5fb8acf5ade2bf5.json
 e0b7b8fae0592c613427857be9b8fdc4 *inst/extdata/ePIC-21-T11909-e0efc41346cda4ba84ca.json
 b46e17f8ced90375c7b2b279e5b84c35 *inst/extdata/ePIC-21-T11909-fb2e379f820c6f8f9e82.json
-7072d56e4b168b0095f92eabb87a3cf2 *inst/extdata/ePIC-21-T11909-feeb33ad3e4440682a4d.json
-51f0bb37f008b5a41de67761fbcd823a *man/dtreg-package.Rd
+42ec66ffa408bea06aba86b5e00fa122 *inst/extdata/ePIC-21-T11909-feeb33ad3e4440682a4d.json
+01f1dfd8426e530ea6e7d3958d5aea05 *man/dtreg-package.Rd
 e84705d7e7d3b238f71f535cfcac20a3 *man/load_datatype.Rd
 06c814cdbd4ab4cd244b51e5a7072698 *man/show_fields.Rd
 a813fa0aab27b3c4a3b816d55c9b51ae *man/to_jsonld.Rd
@@ -57,4 +57,4 @@ ca5ee45ea5a9267957fedaaed668b0fb *tests/testthat/test-helpers.R
 b959cd82c4bb59c3f5ba894204cd7e3b *tests/testthat/test-load_datatype.R
 4c130b34410fcc4560bc19cbae620d5a *tests/testthat/test-request_dtr.R
 fcc6e213851d2f7cc2b7504729af3e94 *tests/testthat/test-to_jsonld.R
-b5790741056caa3c9575d5d5c2144f5e *vignettes/dtreg.Rmd
+676aa0b2b36eb4990b023080ca574de7 *vignettes/dtreg.Rmd

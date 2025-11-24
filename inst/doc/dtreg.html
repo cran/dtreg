@@ -351,10 +351,10 @@ format.</p></li>
 </ul>
 <div id="section1" class="section level2">
 <h2>1. Load a DTR schema</h2>
-<p>To load a DTR schema, you need to know its identifier (see the <a href="https://reborn.orkg.org/pages/help">help page</a>). For example,
-to report Wilcoxon test, you need the group_comparison schema. If a
-valid identifier is used, you get an R object containing information
-about the DTR schema:</p>
+<p>To load a DTR schema, you need to know its identifier (see the <a href="https://knowledgeloom.tib.eu/pages/help">help page</a>). For
+example, to report Wilcoxon test, you need the group_comparison schema.
+If a valid identifier is used, you get an R object containing
+information about the DTR schema:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>dt <span class="ot">&lt;-</span> dtreg<span class="sc">::</span><span class="fu">load_datatype</span>(<span class="st">&quot;https://doi.org/21.T11969/b9335ce2c99ed87735a6&quot;</span>)</span></code></pre></div>
 <p>In addition to the schema you requested (in this case, the
 group_comparison), you get schemata that you might need for using it
@@ -494,8 +494,8 @@ length and petal width in virginica with a simple linear regression
 <h3>Choose parts of analysis to address and schemata to load</h3>
 <p>First of all, we select schemata based on what analytic methods we
 report. Let us omit preprocessing, which is rather trivial in this case,
-and focus on the Wilcoxon test and SLR. For them, as the <a href="https://reborn.orkg.org/pages/help">help page</a> specifies, we
-need the group_comparison and regression_analysis schemata. Also, for
+and focus on the Wilcoxon test and SLR. For them, as the <a href="https://knowledgeloom.tib.eu/pages/help">help page</a> specifies,
+we need the group_comparison and regression_analysis schemata. Also, for
 any data analysis, the overarching data_analysis schema is required. Let
 us load these (see <a href="#section1">Load a DTR schema</a> above):</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>dt_wilc <span class="ot">&lt;-</span></span>

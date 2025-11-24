@@ -1,3 +1,15 @@
+# dtreg 1.1.2
+
+* Updated the data analysis schema in static files.
+
+* Changed the help page from reborn to Loom.
+
+* Changed the repository URL from orkg to Loom.
+
+* Moved coverage tests from GitHub plus Coveralls to GitLab CICD.
+
+* Changed the maintainer.
+
 # dtreg 1.1.1
 
 * Unit tests mock the ORKG and ePIC API access.
